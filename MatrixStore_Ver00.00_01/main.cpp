@@ -1,8 +1,6 @@
 ﻿#include <stdio.h>
 #include <iostream>
-
 #include "MatrixStore.hpp"
-
 
 int main(){
 
