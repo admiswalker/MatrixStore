@@ -13,13 +13,19 @@ int main(){
 		}
 	}
 
-	printm(MatA);
+	printm(MatA);printf("\n");
 
 	MatB(':', 0) = MatA(':', 1);
 //	MatB(':', 1) = MatA(':', 2);
 //	MatB(':', 2) = MatA(':', 0);
 
-	printm(MatB);
+	printm(MatB);printf("\n");
+
+	MatB(0, ':') = MatA(0, ':');
+//	MatB(1, ':') = MatA(1, ':');
+	MatB(2, ':') = MatA(2, ':');
+
+	printm(MatB);printf("\n");
 
 	return 0;
 }

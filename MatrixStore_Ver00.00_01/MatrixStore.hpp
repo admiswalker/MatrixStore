@@ -2,12 +2,13 @@
 
 #include <stdio.h>
 #include "printf_dbger.h"
-#include "ColCopy.hpp"
+#include "OpCopyRow.hpp"
+#include "OpCopyCol.hpp"
 
 
 // プロトタイプ宣言
-template <typename type>
-class ColCopy;
+template <typename type>class OpCopyCol;
+template <typename type>class OpCopyRow;
 
 
 
@@ -20,29 +21,18 @@ public:
 	unsigned int RowNum;	// 行数
 	unsigned int ColNum;	// 列数
 
-//	MatrixStore();
 	MatrixStore(unsigned int Row, unsigned int Col);
 	~MatrixStore();
 
 	void Zeros();
 
-//	template <typename type>
-//	const MatrixStore operator+(const DataStore& rhs) const;			// const メンバ関数
-
 	type& operator()(unsigned int p, unsigned int q);
-//	unsigned int& operator()(const char c_dummy, unsigned int q);
 
-
-//	class ColCopy<type>& operator()(const char c_dummy, unsigned int q);
-	class ColCopy<type> operator()(const char c_dummy, unsigned int q);
-
-
-//	type operator=(type value);
+	class OpCopyCol<type> operator()(const char c_dummy, unsigned int q);
+	class OpCopyRow<type> operator()(unsigned int p, const char c_dummy);
 
 	void printMatrixStore();
 };
-
-// MatrixStore::MatrixStore(){}
 template <typename type>
 inline MatrixStore<type>::MatrixStore(unsigned int Row, unsigned int Col){
 	RowNum = Row;
@@ -73,14 +63,6 @@ inline type& MatrixStore<type>::operator()(unsigned int p, unsigned int q)
 //	printf_dbger_if_Stop_Exit(q>ColNum, "Over the length of ColNum: %d", ColNum);
 	return *(type*)(&MatX[RowNum*q + p]);
 }
-/*
-template <typename type>
-type MatrixStore<type>::operator=(type value)	// const メンバ関数
-{
-	value;
-	return (*this);
-}
-//*/
 
 template <>
 inline void MatrixStore<int>::printMatrixStore(){
@@ -175,9 +157,20 @@ inline void CopyCol(class MatrixStore<type>*& pWriteMat, unsigned int WriteCol, 
 
 
 template <typename type>
-inline class ColCopy<type> MatrixStore<type>::operator()(const char c_dummy, unsigned int q)
+inline class OpCopyRow<type> MatrixStore<type>::operator()(unsigned int p, const char c_dummy)
 {
-	class ColCopy<type> CC;
+	class OpCopyRow<type> CR;
+	CR.pMS = this;
+	CR.CopyRowNum = p;
+
+	return CR;
+}
+
+
+template <typename type>
+inline class OpCopyCol<type> MatrixStore<type>::operator()(const char c_dummy, unsigned int q)
+{
+	class OpCopyCol<type> CC;
 	CC.pMS = this;
 	CC.CopyColNum = q;
 
