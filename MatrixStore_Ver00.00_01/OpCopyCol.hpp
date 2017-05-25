@@ -18,19 +18,19 @@ public:
 	class MatrixStore<type>* pMS;
 	unsigned int CopyColNum;
 
-	void operator=(class OpCopyCol<type> CC);
+	class OpCopyCol<type> operator=(class OpCopyCol<type> CC);
 };
 
 template <typename type>inline OpCopyCol<type>::OpCopyCol(){}
 template <typename type>inline OpCopyCol<type>::~OpCopyCol(){}
 
 template <typename type>
-inline void OpCopyCol<type>::operator=(class OpCopyCol<type> CC)
+inline class OpCopyCol<type> OpCopyCol<type>::operator=(class OpCopyCol<type> CC)
 {
 	for(unsigned int p=0; p<this->pMS->RowNum; p++){
 		this->pMS->MatX[p + this->pMS->RowNum * this->CopyColNum]
 		 = CC.pMS->MatX[p + CC.pMS->RowNum * CC.CopyColNum];
 	}
-	return;
+	return *this;
 }
 
