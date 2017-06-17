@@ -1,0 +1,19 @@
+﻿/*
+
+	How to use this?
+
+
+	// 行列のメモリ確保
+	class msx::MatrixStore<double>* MatX = new msx::MatrixStore<double>(ImageArrayLength, NumOfImg);//256*256: 16bits
+	printf("MatX->RowNum: %d\n", MatX->RowNum);
+	printf("MatX->ColNum: %d\n", MatX->ColNum);
+
+	for(unsigned int q=0; q<(MatX->ColNum); q++){
+		for(unsigned int p=0; p<MatX->RowNum; p++){
+			(*MatX)(p, q) = 0;
+		}
+	}
+
+	delete MatX;
+
+ */
