@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#  coding: utf-8
 #
 #  The MIT License (MIT)
 #  Copyright (c) 2017 ADMIS_Walker (Blog: https://admiswalker.blogspot.jp/)
